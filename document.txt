@@ -1,0 +1,310 @@
+package com.text.java.question.while2;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Q04 { 
+
+	public static void main(String[] args) throws Exception {
+
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("숫자 입력 :");
+		int inputNum = Integer.parseInt(reader.readLine());
+
+
+		int evenSum = 0; // 짝수합
+		int oddSum = 0; // 홀수합
+
+		for (int i = 0; i < 9; i++) {
+			int num = ((int) (inputNum / Math.pow(10, i))) % 10; // 10을 나눠주면 그 나머지가 자릿값의 숫자임
+
+
+			if (num % 2 == 0) { // num이 짝수일경우
+				evenSum = evenSum + num;
+
+			} else { // num이 홀수일경우
+				oddSum = oddSum + num;
+			}
+		}
+
+
+		System.out.printf("짝수의 합:%d\n", evenSum);
+		System.out.printf("홀수의 합:%d\n", oddSum);
+
+	}
+
+}
+
+*코드리뷰 : 각가의 숫자에 있는 자릿수를 구하는 알고리즘이 다양하게 있었지만, 그중 가장 짧은
+방법을 적음
+int num = ((int) (inputNum / Math.pow(10, i))) % 10; 에서 10을 나눠주면 그 나머지가 자릿값의 숫자이기 때문에
+짧게 구현 할 수 있음
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+package com.text.java.question.iteration2;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+
+public class Q04_2 {
+	public static void main(String[] args) throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.print("행 : ");
+		int num = Integer.parseInt(reader.readLine());
+
+
+		for (int i = 1; i <= num; i++) {
+
+			for (int j = i; j <= num; j++) { // ... *** ** *
+				System.out.print(" ");
+			}
+
+			for (int j = 1; j <= i; j++) { // 1, 12,123 ...
+				System.out.print(numToEng(j));
+			}
+
+
+			for (int j = i; j >= 1; j--) { // 1, 21, 321, ...
+				System.out.print(numToEng(j));
+
+			}
+
+
+			System.out.println();
+		}
+
+
+	}
+
+	private static char numToEng(int i) { // 숫자 알파벳 변환
+
+		return (char) (i + 96); // a = 97일 경우를 활용 i가 1일떄 -> 97출력
+
+	}// main
+
+}
+
+*코드리뷰 : 숫자로 먼저 구현을 한 다음 -> 알파벳으로 변환해주는 메소드private static char numToEng(int i) 를 사용하면
+알파벳 비라미드로 변환 할 수 있음
+--------------------------------------------------------------------------------------------------------------------------------
+
+package com.text.java.question.iteration2;
+
+public class Q05 {
+
+	public static void main(String[] args) {// 구구단
+		// TODO Auto-generated method stub
+
+
+		int x, y, i;
+
+		for (i = 1; i < 3; i++) {// 총 두 단락으로 나누어줌(2번 바꿈)
+			for (y = 1; y < 10; y++) {// x9까지 해주는 역활(9번 줄바꿈해줌)
+				for (x = 4 * i - 2; x <= (4 * i) + 1; x++) {// i가 1일때 x는 2 3 4 5 i가 2일때 x는 6 7 8 9
+					System.out.printf("%d * %d = %2d  ", x, y, x * y);
+				}
+				System.out.printf("\n");
+			}
+			System.out.printf("\n");
+		}
+
+	}
+
+}
+
+*코드리뷰 : 3중 포문방법과 2중포문으로 구하는 방법 두가지로 나눌 수 있음
+그 중 길이가 짧은것은 3중 포문이지만, 두 단락으로 나누어서 이중포문 두개로 구현하는 방법이
+가독성 부분에서는 더욱 좋다고 판단됨.
+--------------------------------------------------------------------------------------------------------------------------------
+package com.text.java.question.iteration2;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Q07 {
+
+	public static void main(String[] args) throws Exception {// 공약수 구하기
+		// TODO Auto-generated method stub
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("숫자 두개를 입력하시오");
+		int num1 = Integer.parseInt(reader.readLine());
+		int num2 = Integer.parseInt(reader.readLine());
+		String output = "";
+		String output2 = "";
+		String output3 = "";
+
+
+
+		for (int i = 1; i <= (num1 > num2 ? num1 : num2); i++) {
+			if (num1 % i == 0) { // 숫자1의 약수
+				output = output + String.valueOf(i) + " ";
+			}
+			if (num2 % i == 0) { // 숫자 2의 약수
+
+				output2 = output2 + String.valueOf(i) + " ";
+
+			}
+			if (num1 % i == 0 && num2 % i == 0) { // 숫자 1과 2의 공약수
+
+				output3 = output3 + String.valueOf(i) + " ";
+			}
+
+
+		}
+		System.out.println(num1 + "의 약수 : " + output);
+		System.out.println(num2 + "의 약수 : " + output2);
+		System.out.println(num1 + "와" + num2 + "의 공약수 : " + output3);
+
+	}
+
+}
+
+*코드리뷰 : 각각의 약수를 구한다음 ,   (num1 % i == 0 && num2 % i == 0)를 사용하여 공약수를 구함
+--------------------------------------------------------------------------------------------------------------------------------
+package com.text.java.question.iteration2;
+
+public class Q08 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int sum = 0;;
+		int i;
+
+
+		for (i = 1; i <= 100; i++) {
+			sum = sum + i;
+			if (i % 10 == 0) {
+				System.out.println((i - 9) + "~" + (i) + " : " + sum);
+				sum = 0; // 초기화를 시켜줌 -> 앞에 합 0으로 만들고 다시 누적시키기
+			}
+		}
+	}
+
+}
+
+*코드리뷰 : 먼저 for문을 사용하여 1~10까지 더하는 메소드를 만든 후,  if (i % 10 == 0)을 사용하여 나머지가 10으로 
+나누어 떨어지면 그 결과값을 출력하도록 해준다.
+하지만 1~10, 11~20 ... 의 합을 구하는 것이기 때문에 If (i % 10 == 0)의 sum = 0;을 초기화 해주어야한다.
+--------------------------------------------------------------------------------------------------------------------------------
+package com.text.java.question.iteration2;
+
+public class Q09 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// 마지막 숫자가 100이 넘기 전까지 출력하시오.
+		// 1 + 2 + 4 + 7 + 11 + 16 + 22 + 29 + 37 + 46 + 56 + 67 + 79 + 92 = 469
+		int num = 0;
+		int sum = 0;
+		String str = "";
+		for (int i = 0; i <= 13; i++) {
+			num = num + i; // 0 1 3 6 10 15 21 28 36 45 55 66 78 91
+			sum = sum + (num + 1);
+
+			if ((num + 1) == 1) {
+				System.out.print(num + 1);
+			} else {//num+1이 1이 아닐경우
+				System.out.print("+" + (num + 1));
+
+
+			}
+
+		}
+		System.out.print("=" + sum); // +1+2+4+7+11+16+22+29+37+46+56+67+79+92=469
+	}
+}
+
+*코드리뷰 : 더하는 값이 1씩 증가하기 때문에 이 부분을 i로 받아서 for문을 작성함.
+for문을 돌면 num = num + i; 으로 인해  0 1 3 6 10 15 21 28 36 45 55 66 78 91이 나오는데
+거기다가 +1을 해주어 원하는 숫자값을 출력하게 해줌
+--------------------------------------------------------------------------------------------------------------------------------
+
+방법 1 
+
+Q17번 피보나치수열
+public static void main(String[] args) {
+      
+        int before = 1;
+        int now = 1;
+        int after = 0;
+        int output = 0;
+        String plus = "";
+        
+        
+        plus = String.valueOf(before + " + " + now);
+        output = before + now;
+        for(;;){
+           
+           if (after < 100) {
+              
+              after = before + now;
+              
+              output += after;
+              
+              before = now;
+              
+              now = after;
+              
+              if(now > 100) {
+                 
+                 output = output - now;
+                 
+              } else {
+                 
+                 plus += String.valueOf(" + " + now);
+                 
+              }
+              
+           } else {
+              
+              System.out.printf("%s = %d", plus, output);
+              break;
+              
+           }
+        }        
+    }
+}
+
+
+방법2
+package com.text.java.question.iteration2;
+
+public class Q10 {
+
+	public static void main(String[] args) {// 피보나치 수열
+		// TODO Auto-generated method stub
+		// 마지막 숫자가 100이 넘기 전까지 출력하시오.
+		// 1 + 1 + (2 + 3 + 5 + 8 + 13 + 21 + 34 + 55 + 89) = 232
+		int a1 = 1;
+		int a2 = 1;
+		int a3 = 0;
+		int sum = 0;
+		String output = "";
+
+
+		System.out.print(a1); // 1먼저 출력
+		System.out.print("+");
+		System.out.print(a2); // 그 다음 1 출력
+
+		for (int i = 0; i <= 8; i++) {
+			a3 = a1 + a2;
+			System.out.print("+" + a3);
+			a1 = a2; // a2를 a1에 대입
+			a2 = a3; // a3을 a2에 대입
+			sum = sum + a3;
+
+
+
+		}
+		System.out.println("=" + (sum + 2));
+	}
+}
+
+*코드리뷰 : 두가지 방법 모두   before = now;     now = after;  (now를 before에 대입하고 after를 now 에 대입)
+a1 = a2;  a2 = a3; (a2를 a1에 대입하고 a3를 a2에 대입함)을 사용하여 피보나치 수열을 계산함.
