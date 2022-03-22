@@ -1,0 +1,266 @@
+public class Q01 {
+
+	public static void main(String[] args) {
+		int[][] nums = new int[5][5];
+		
+		int n = 1;
+			for (int i = 0; i < 5; i++) {
+				if (i % 2 == 0) {				// 행이 2로 나누어떨어질경우
+					for (int j = 0; j < 5; j++) {		// 열이 5까지 증가할때마다
+						nums[i][j] = n;		// n값을 삽입
+						n++;
+					}
+				} else {
+					for (int j = 4; j >= 0; j--) {		// 행이 2로 나누어 떨어지지 않을 경우
+						nums[i][j] = n;		// 열이 1식 감소하며 
+						n++;			// n값을 삽입
+					}
+				}
+			}
+		// 데이터 출력 > 절대 수정 금지!!!!
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%5d", nums[i][j]);
+			}
+			System.out.println();
+		}
+	}
+}
+
+public class Q02 {
+
+	public static void main(String[] args) {
+		int[][] nums = new int[5][5];
+		
+		int n = 1;
+		for (int i = 4; i >= 0; i--) {				// 행이 아래서부터 위로 올라오게
+			for (int j = 4; j >= 0; j--) {			// 마찬가지로 열이 왼쪽에서 오른쪽으로 진행되도록
+				nums[i][j] = n;						
+				n++;				// n값 삽입
+			}
+		}
+		// 데이터 출력 > 절대 수정 금지!!!!
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%5d", nums[i][j]);
+			}
+			System.out.println();
+		}
+	}
+}
+
+public class Q03 {
+
+	public static void main(String[] args) {
+		int[][] nums = new int[5][5];
+		
+		int n = 1;
+		for (int i = 0; i < 5; i++) {				// 열의 증가가 느리고
+			for (int j = 0; j < 5; j++) {			// 행의 증가가 빠르도록
+				nums[j][i] = n;
+				n++;				// n값을 삽입
+			}
+		}
+		// 데이터 출력 > 절대 수정 금지!!!!
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%5d", nums[i][j]);
+			}
+			System.out.println();
+		}
+	}
+
+}
+
+// 추가로 nums[i][j]로 기입할 경우 j 증가 값을 (j + 1 + 5 * j)로 구현 가능
+
+public class Q04 {
+
+	public static void main(String[] args) {
+		int[][] list = new int[5][5];
+		int length = 5;
+		int n = 1;
+		
+		for (int i = 0; i < 5; i++) {				// 행은 5번 돌아야하고
+			for (int j = 0; j < length; j++) {		// 열은 아래로 내려갈수록 1식 감소하면서 값을 기입해야 되므로
+				list[i][j] = n;			// length인 5만큼 j for문을 다 돌았으면 
+				n++;
+			}
+			length--;					// length 값을 -1 해주고 다음 행의 j for문을 진행
+		}
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%5d", list[i][j]);
+			}
+			System.out.println();
+		}
+	}
+}
+
+// length를 5 - i로 선언하여 변수를 추가하지 않고 구현 가능
+
+public class Q05 {
+
+	public static void main(String[] args) {
+
+		int[][] list = new int[5][5];
+		int n = 1;
+		int count = 5;
+		
+		for (int i = 1; i < 6; i++) {
+			
+			if (count % i == 0) {			// 5 % 1 == 0 and 5 % 5 == 0
+				for (int j = 2; j < 3; j++) {		// j 2인 값만 돌게
+					list[i-1][j] = n;		// 해서 list[1 - 1][2] = n이 들어가게
+					n++;
+				}
+			} else if (count % i == 1){			// 5 % 2 == 1 and 5 % 4 == 1
+				for (int j = 1; j < 4; j++) {		// j가 1 ~ 3까지 돌도록	 (3번 돌도록)
+					list[i-1][j] = n;		// list [1, 3][1, 2, 3]
+					n++;
+				}
+			} else if (count % i == 2) {			// 5 % 3 == 2
+				for (int j = 0; j < 5; j++) {		//j가 0 ~ 4까지 돌도록 (5번 돌도록)
+					list[i-1][j] = n;		// list[2][0, 1, 2, 3, 4, 5]
+					n++;
+				}
+			}
+		}
+		
+		for (int i = 0; i < 5; i++) {			
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%5d", list[i][j]);
+			}
+			System.out.println();
+		}
+	}
+}
+
+public class Q06 {
+
+	public static void main(String[] args) {
+		int[][] list = new int[5][5];
+		int n = 1;
+		
+		int[] row = new int[5];
+		for (int i = 0; i < 5; i++) {
+			if (i < 4) {					// i가 0 ~ 3일때까지
+				for (int j = 0; j < 5; j++) {
+					if (j < 4) {			// j가 0 ~ 3일때까지
+						list[i][j] = n;		// [0 ~ 3][1, 2, 3, 4] 칸에 기입
+						row[i] += n;		// i행의 값들의 합을 row 배열에 기입
+						n++;
+					} else {
+						list[i][j] = row[i];		// 각 행들의 합을 list[i][4]칸에 넣어줌
+					}
+				}
+			} 
+		}
+		/* 1	2	3	4	10			해당 구문까지의 결과물
+		   5	6	7	8	26
+		   9	10	11	12	42
+		   13	14	15	16	58
+		   0	0	0	0	0
+		*/
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 4; j++){
+				list[4][i] += list[j][i];				// 마지막 행에 각 열의 합들을 기입해준다.
+			}
+		}
+		// 28	32	26	40	136	을 마지막 행에 전달
+		
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.printf("%5d", list[i][j]);
+			}
+			System.out.println();
+		}
+	}
+}
+// 4x4를 먼저 구현한 후 행의 합과 열의 합을 나중에 기입한 후 출력하는 방법도 가능
+
+
+public class Q07 {
+	public static void main(String[] args) throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
+		String[][] score = new String[10][3];				// 배열 생성 
+		System.out.print("국어 점수 : ");
+		int kor = Integer.parseInt(reader.readLine());		// 각 점수 입력
+		int kor_line = 0;									// 각 과목의 라인 선정
+		System.out.print("영어 점수 : ");
+		int eng = Integer.parseInt(reader.readLine());
+		int eng_line = 1;
+		System.out.print("수학 점수 : ");
+		int math = Integer.parseInt(reader.readLine());
+		int math_line = 2;
+		
+		int kor_m_blocks = (kor / 10) % 10;					// 10점때마다 점수를 쌓기위해 빼야되는 블럭 개수 측정
+		int eng_m_blocks = (eng / 10) % 10;
+		int math_m_blocks = (math / 10) % 10;
+															
+		check(score, kor_m_blocks, kor_line);				// 배열과 과목점수, 과목 라인을 메소드에게 전달
+		check(score, eng_m_blocks, eng_line);
+		check(score, math_m_blocks, math_line);
+		
+		// 데이터 출력 > 절대 수정 금지!!!!
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (score[i][j] == null) {						// 출력 시 해당 값이 null일경우 빈칸을 출력
+					System.out.printf(" \t");					
+				} else {
+					System.out.printf("%3s\t", score[i][j]);	// 아닐경우 출력
+				}
+			}
+			System.out.println();
+		}
+		System.out.println("---------------------------");
+		System.out.println(" 국어\t 영어\t 수학\t");
+		
+	}
+
+	// for 문과 if문을 사용하여 진행  kor인경우 
+	private static void check(String[][] score, int m_blocks, int line) {	
+		for (int i = line; i < line+1; i++) {								// 과목 라인 즉 열에 알맞게 for문을 돌고
+			for (int j = 9; j > 9 - m_blocks; j--) {						// 아래에서부터 점수 쌓기 위한 구문
+				score[j][i] = "■";											// 10칸에서 마이너스 블럭을 빼 각 과목 라인에 블럭 쌓기
+			}
+			
+		}
+	}
+}
+
+public class Q08 {
+	public static void main(String[] args) {
+		int[][] list = new int[5][5];
+		int n = 1 ;
+
+		//(0,0) {(0,1),(1,0)}, {(0,2),(1,1),(2,0)}...
+		for(int i=0; i<5; i++) {			// 해당 구문을 통하여
+			for(int j=i; j>=0; j--) {		 
+				list[i-j][j] = n;		// 15까지 기입한 후 
+				n++;
+			}
+		}
+		
+		int m = 25;				// 25(마지막) 값을 따로 선언한 후
+	
+		//(4,4), {(4,3),(3,4)}, {(4,2),(3,3),(2,4)} ...	
+		for (int i=4; i>0; i--) {       			// [4][4]부터 위에 구문과 반대로 삽입하도록 구현
+			for(int j=0; j<(5-i); j++) {			
+				list[4-j][j+i] = m;
+				m--;
+			}
+		}	
+
+		//출력
+		for(int i =0; i<5; i++) {          
+			for(int j =0; j<5; j++) {
+				System.out.printf("%4d", list[i][j]); 
+			}
+			System.out.println();
+		}				
+  	}
+}
+
+// 8번과 9번문제는 구현한 조원이 없어 나중에 개인적으로 구현하도록 진행
