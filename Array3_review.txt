@@ -1,0 +1,366 @@
+22/03/23 코드리뷰
+
+public class Q01 {
+	public static void main(String[] args) throws Exception {
+
+		/*
+		요구사항  : 문장을 입력받아 역순으로 출력하시오.
+		입력     : 문장 입력 : 가나다 
+		출력     : 역순 결과 : "다나가"
+		입력     : 문장 입력 : 안녕하세요. 홍길동입니다. 
+		출력     : 역순 결과 : ".다니입동길홍 .요세하녕안"
+		 */
+
+		inverseStatement();
+	} 
+
+	public static void inverseStatement() throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("문장 입력 : ");
+		String input = reader.readLine();
+		System.out.print("역순 결과 : \"");
+
+		for (int i = 1; i <= input.length(); i++) {
+			System.out.print(input.substring(input.length() - i, input.length() - i + 1));
+		}
+		System.out.print("\"");
+	}
+}
+
+// 다른 방법 > 빈 리스트 만들어서 뒤에서부터 리스트에 담기
+
+
+
+
+
+public class Q02 {
+
+	public static void main(String[] args) throws Exception {
+		/*
+		요구사항  : 이메일 주소를 입력받아 아이디와 도메인을 각각 추출하시오.
+		입력     : 이메일: hong@gmail.com 
+		출력     : 아이디: hong
+				  도메인: gmail.com
+		 */
+		extractID();
+	} // main
+
+	public static void extractID() throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("이메일: ");
+		String input = reader.readLine();
+
+		int index = input.indexOf("@");
+		String extractId = input.substring(0, index);
+
+		System.out.println("아이디 :" + extractId);
+		String extractDomain = input.substring(index + 1, input.length() - 1);
+		System.out.println("도메인 :" + extractDomain);
+	}
+
+}
+
+// 다른 방법 > split으로 없애면 num[0], num[1]로 풀이
+
+
+
+
+
+
+public class Q03 {
+	public static void main(String[] args) throws Exception {
+		/*
+		요구사항  : 숫자를 입력받아 각 자릿수의 수의 합을 구하시오.
+		입력     : 숫자: 314 
+		출력     : 결과: 3 + 1 + 4 = 8
+		 */
+		inputSum();
+
+	} // main
+
+	public static void inputSum() throws Exception {
+		int sum = 0;
+		String stringSum = "";
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("숫자: ");
+		String input = reader.readLine();
+
+		for (int i = 0; i < input.length(); i++) {
+			int num = Integer.parseInt(input.substring(i, i + 1));
+			sum += num;
+			if (i != input.length() - 1) {
+				stringSum += input.charAt(i) + " + ";
+			} else {
+				stringSum += input.charAt(i);
+			}
+		}
+
+		System.out.printf("결과: %s = %d", stringSum, sum);
+	}
+}
+
+// 다른 방법 > split 분리해서 배열 > StringBuilder > for문 > 더하기
+// tocharArray > 추출 더하기
+
+
+
+
+
+
+public class Q04 {
+	public static void main(String[] args) throws Exception {
+		/*
+		요구사항  : 파일명 10개를 입력받아 각 확장자별로 총 개수를 출력하시오.
+		조건     : 확장자는 다음으로 제한한다.
+			 	  mp3, jpg, java, hwp, doc
+		입력     : 파일명: 인기가요.mp3
+			 	  파일명: cat.jpg
+			 	  파일명: Ex01.java
+			 	  파일명: icon.jpg
+			 	  파일명: 수업_정리.doc
+			 	  파일명: Scanner.java
+			 	  파일명: food.jpg
+			 	  파일명: 공지사항.hwp
+			 	  파일명: 이력서.hwp
+			 	  파일명: 출금내역.doc
+		출력     : mp3 : 1개
+				  jpg : 3개
+				  java : 2개
+				  hwp : 2개
+				  doc : 2개
+		 */
+		fileNum();
+	} // main
+
+
+	public static void fileNum() throws Exception {
+		int mp3Sum = 0;
+		int jpgSum = 0;
+		int javaSum = 0;
+		int hwpSum = 0;
+		int docSum = 0;
+
+		for (int i = 0; i < 10; i++) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("파일명 : ");
+			String input = reader.readLine();
+
+			if (input.endsWith(".mp3")) {
+				mp3Sum += 1;
+			} else if (input.endsWith(".jpg")) {
+				jpgSum += 1;
+			} else if (input.endsWith(".java")) {
+				javaSum += 1;
+			} else if (input.endsWith(".hwp")) {
+				hwpSum += 1;
+			} else if (input.endsWith(".doc")) {
+				docSum += 1;
+			}
+
+		} // for
+		System.out.printf("mp3 : %d개\n", mp3Sum);
+		System.out.printf("jpg : %d개\n", jpgSum);
+		System.out.printf("java : %d개\n", javaSum);
+		System.out.printf("hwp : %d개\n", hwpSum);
+		System.out.printf("doc : %d개\n", docSum);
+	}
+
+
+} // class
+
+// 대소문자 구별 추가하기
+
+
+
+
+
+
+public class Q05 {
+	public static void main(String[] args) {
+		/*
+		요구사항  : 특정 단어가 문장내에 몇회 있어있는지 수를 세시오.
+		조건     : 대상 문자열: String content = "안녕~ 길동아~ 잘가~ 길동아~";
+				  검색 문자열: String word = "길동";
+		출력     : '길동'을 총 2회 발견했습니다.
+		 */
+
+		String word = "길동";
+		String content = "안녕~ 길동아~ 잘가~ 길동아~";
+
+
+		int count = 0;
+
+
+		if (content.indexOf(word) > -1) {
+			count += 1; // 첫번째 길동 발견
+			int num = content.indexOf(word);
+			int finalNum = content.lastIndexOf(word);
+
+			for (int i = 0; num < finalNum; i++) {
+				if (num > -1) {
+					count += 1;
+					num = content.indexOf("길동", num + 2) + 2;
+				} else {
+					break;
+				}
+			}
+		}
+
+		System.out.printf("'길동'을 총 %d회 발견했습니다.", count);
+	}
+}
+
+// 다른 방법 > replace 길동 > 특수 문자 > 특수문자 count
+// replace 사용 > 전체 문장 알아서 바꿔줌
+
+
+
+
+
+public class Q06 {
+	public static void main(String[] args) throws Exception {
+		/*
+		요구사항  : 주민 등록 번호 유효성 검사를 하시오.
+		조건     : '-'의 입력 유무 상관없이 검사하시오.
+		입력 		: 주민등록번호: 951220-1021547 
+		출력     : 올바른 주민등록번호입니다.
+		입력 		: 주민등록번호: 951220-1234567 
+		출력     : 올바르지 않은 주민등록번호입니다.
+		 */ }
+
+}
+// 계산법으로 유효성 검사 하면 따로 년월일 유효성 검사할 필요 없음
+
+
+
+
+
+
+
+public class Q07 {
+	public static void main(String[] args) throws Exception {
+		/*
+		요구사항  : 숫자를 입력받아 3자리마다 , 를 붙이시오.
+		조건     : %,d 사용 금지
+		입력 		: 숫자: 1234
+		출력     : 결과: 1,234
+		입력 		: 숫자: 1234567
+		출력     : 결과: 1,234,567
+		
+		숫자 입력받기
+		for문 숫자 길이/3 나머지, 몫 이용
+		뒤에서 3개씩 받고 , 붙이고 ""에 저장
+		 */
+
+		threeComma();
+
+	} // main
+
+	public static void threeComma() throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print("숫자: ");
+		String input = reader.readLine();
+
+		int startNum = input.length() % 3;
+
+		if (startNum == 0) {
+			System.out.print(input.substring(0, startNum + 3) + ",");
+
+			for (int i = 0; i < (input.length() / 3) - 1; i++) {
+				if (startNum + 3 != input.length() - 3) {
+					System.out.print(input.substring(startNum + 3, startNum + 6) + ",");
+					startNum += 3;
+				} else {
+					System.out.print(input.substring(input.length() - 3, input.length()));
+				}
+			}
+		}
+
+		else {
+			System.out.print(input.substring(0, startNum) + ",");
+
+
+			for (int i = 0; i < (input.length() / 3); i++) {
+				if (startNum != input.length() - 3) {
+					System.out.print(input.substring(startNum + 1, startNum + 4) + ",");
+					startNum += 3;
+				} else {
+					System.out.print(input.substring(startNum, startNum + 3));
+				}
+			}
+		}
+	}
+} // class
+
+// 다른 방법 > 뒤에서부터 3개로 나눠서 , 들어가게 > 삽입 > list로 만들고 , +붙임 > 거꾸로 가는데 리스트는 제대로 감? 뭐지 > 더 짧은 코드
+// 누적 > StringBuilder 구현
+
+
+
+
+
+public class Q08 {
+	public static void main(String[] args) throws Exception {
+
+
+		/*
+		8번 문제 
+		요구사항  : 영단어를 입력받아 분리하시오.
+		조건     : 합성어를 입력한다.
+		 	합성어는 파스칼 표기법으로 입력한다.
+			출력은 각 단어를 공백으로 구분한다.
+		입력     : 단어: StudentName
+		출력     : 결과: Student Name
+		*/
+	} // main
+
+} // class
+
+// char배열 변환 > 새로운 배열선언 > 대문자인지 아닌지 > 스트링+공백추가
+// 첫문자가 대문자일때 문제
+// 다른 방법 있음
+
+
+
+
+
+
+public class Q09 {
+	public static void main(String[] args) throws Exception {
+		/*
+		9번 문제 
+		요구사항  : 금지어를 마스킹 처리 하시오.
+		조건     : 금지어 : 바보, 멍청이
+		입력 		: 너랑 안놀아 바보야!!
+		출력     : 너랑 안놀아 **야!!
+				  금지어를 1회 마스킹했습니다.
+		입력 		: 그것도 모르다니 멍청이;
+		출력     : 그것도 모르다니 ***;
+				  금지어를 1회 마스킹했습니다.
+		입력 		: 잘 생각해봐 바보 멍청이 
+		출력     : 잘 생각해봐 ** ***
+				  금지어를 2회 마스킹했습니다.
+		 */
+	}
+}
+
+// 바보 > replace ** 바꾸고 빈 공백으로 바꿈 > 글자수 차이 /2 마스킹 횟수 저장
+// 멍청이 같은 방법으로 저장하고 더한 후 출력
+
+
+
+
+
+Q10~Q12 풀이 없음
+
+
+
+
+
+
+
+
+
+
+
+
