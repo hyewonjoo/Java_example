@@ -1,0 +1,749 @@
+public class Q01 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Book b1 = new Book(); // 북 객체 생성
+
+		b1.setTitle("자바의 정석");
+		b1.setPrice(45000);
+		b1.setAuthor("남궁성");
+		b1.setPublsiher("도우출판");
+		b1.setIsbn("8994492038");
+		b1.setPage(1022);
+
+		System.out.println(b1.info());
+
+	}// main
+
+}// Q01 class
+
+
+class Book {
+	private String title;
+	private int price;
+	private String author;
+	private String publsiher;
+	private String pubYear = "2019";
+	private String isbn;
+	private int page;
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		if (checkName(title) == true) {
+			this.title = title;
+		} else {
+			System.out.println("올바르지 않은 이름");
+		}
+	}
+
+
+	//
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		if (price > 0 && price < 1000000) {
+			this.price = price;
+		} else {
+			System.out.println("올바르지 않은 가격");
+		}
+	}
+
+	//
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	//
+	public void setPublsiher(String publsiher) {
+		this.publsiher = publsiher;
+	}
+
+	//
+	public String getPubYear() {
+		return pubYear;
+	}
+
+	//
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	//
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		if (page > 0) {
+			this.page = page;
+		} else {
+			System.out.println("올바르지 않은 페이지");
+		}
+	}
+
+	// 제목의 유효성 검사 메소드 따로 뺌
+	private boolean checkName(String title) {
+
+		if (title.length() < 0 || title.length() > 50) { // 1.글자수 50개
+			return false;
+		}
+
+		// 공백 포함 주의!!!!
+		for (int i = 0; i < title.length(); i++) {// 2.글자 모두 한글인경우
+			char c = title.charAt(i);
+			if ((c < '가' || c > '힣') && (c != ' ')) {
+				return false;
+			}
+		}
+		return true;
+
+	}
+
+	// 여기서 문자열로 반환
+	public String info() {
+		return String.format(
+				"제목 : %s\n가격 : %d\n저자 : %s\n출판사 : %s\n발행년도 : %s\nisbn : %s\n페이지 : %d\n", this.title,
+				this.price, this.author, this.publsiher, this.pubYear, this.isbn, this.page);
+
+
+
+	}
+}
+
+
+*코드리뷰
+대부분의 조원들이 동일한 코드를 구현.
+b1.setTitle("자바의 정석") 유효성 검사할때 공백도 포함시키는거 주의
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+public class Q02 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Note note = new Note();
+
+		note.setSize("B4");
+		note.setColor("노란색");
+		note.setPage(25);
+		note.setOwner("홍길동");
+
+		System.out.println(note.info());
+
+
+		Note note2 = new Note();
+
+		note2.setSize("A4");
+		note2.setColor("검정색");
+		note2.setPage(100);
+		note2.setOwner("");
+
+		System.out.println(note2.info());
+	}
+
+}
+
+
+class Note {
+	private String size;
+	private String color;
+	private int page;
+	private String owner;
+	private int price;
+
+	private int result1 = 0; // a4
+	private int result2 = 0; // color
+	private int result3 = 0; // page
+	private String result4 = " "; // page 얇은 보통 중간
+
+	public String getSize() {
+		return size;
+	}
+
+
+	public void setSize(String size) {
+		if (size.equals("A3")) {
+			this.size = size;
+		} else if (size.equals("A4")) {
+			this.size = size;
+		} else if (size.equals("A5")) {
+			this.size = size;
+		} else if (size.equals("B3")) {
+			this.size = size;
+		} else if (size.equals("B4")) {
+			this.size = size;
+		} else if (size.equals("B5")) {
+			this.size = size;
+		}
+
+
+
+		if (size.equals("A3")) {
+			result1 = Integer.parseInt("400");
+		} else if (size.equals("A4")) {
+			result1 = Integer.parseInt("200");
+		} else if (size.equals("A5")) {
+			result1 = Integer.parseInt("0");
+		} else if (size.equals("B3")) {
+			result1 = Integer.parseInt("500");
+		} else if (size.equals("B4")) {
+			result1 = Integer.parseInt("300");
+		} else if (size.equals("B5")) {
+			result1 = Integer.parseInt("100");
+		}
+
+	}
+
+
+	public void setColor(String color) {
+		if (color.equals("검정색")) {
+			this.color = color;
+		} else if (color.equals("노란색")) {
+			this.color = color;
+		} else if (color.equals("파란색")) {
+			this.color = color;
+		} else if (color.equals("흰색")) {
+			this.color = color;
+
+		}
+		if (color.equals("검정색")) {
+			result2 = Integer.parseInt("100");
+		} else if (color.equals("노란색")) {
+			result2 = Integer.parseInt("200");
+		} else if (color.equals("파란색")) {
+			result2 = Integer.parseInt("200");
+		} else if (color.equals("흰색")) {
+			result2 = Integer.parseInt("0");
+
+		}
+	}
+
+	//
+	public void setPage(int page) {
+		if (page >= 10 && page <= 200) {
+			if (10 <= page && page <= 50) {
+				result4 = "얇은";
+			}
+
+			if (51 <= page && page <= 100) {
+				result4 = "보통";
+			}
+			if (101 <= page && page <= 200) {
+				result4 = "두꺼운";
+			}
+
+			for (int i = 1; i <= page; i++) {
+				result3 = (page - 10) * 10;
+			}
+
+		} else {
+			System.out.println("올바르지 않은 페이지");
+		}
+	}
+
+
+	public void setOwner(String owner) {
+		if (checkOwner(owner) == true) {
+			this.owner = owner;
+		} else {
+			this.owner = "주인 없는 노트";
+		}
+
+	}
+
+
+	// 가격계산
+	public String info() {
+		if (owner.equals("주인 없는 노트")) {
+			{
+				return String.format("======노트정보=======\n소유자 : %s\n==================", owner);
+			}
+
+		} else {
+			return String.format(
+					"======노트정보=======\n소유자 : %s\n특성 : %s %s %s노트\n가격 : %d\n==================",
+					owner, color, result4, size, 500 + result1 + result2 + result3);
+		}
+
+	}
+
+
+
+	// 소유주 이름 유효성 검사 메소드
+	public boolean checkOwner(String owner) {
+		if (owner.length() == 0) {
+			return false;
+		}
+
+		for (int i = 0; i < owner.length(); i++) {// 2.글자 모두 한글이 아닌경우 false
+			char c = owner.charAt(i);
+			if ((c < '가' || c > '힣')) {
+				return false;
+			}
+		}
+
+
+		return true;
+
+	}
+
+}
+*코드리뷰
+size,color를 가격으로 변환 시켜 주는 부분에서 result1,2변수를 따로 만들어 주어 구현하였지만.
+다른 조원의 코드와 비교했을때 swith문을 써서 A3,A4등등을 case로 잡아 변환시켜주는것이
+가독성과 위상도가 높은것으로 보임.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.Calendar;
+
+public class Q03 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Bugles snack = new Bugles();
+
+		snack.setSize(500);
+		snack.setCreationTime(2022, 3, 20);
+		System.out.println("가격 : " + snack.getPrice() + "원");
+		System.out.println("유통 기한이 " + snack.getExpiration() + "일 남았습니다.");
+
+		snack.eat();
+
+		System.out.println();
+		System.out.println();
+
+		Bugles snack2 = new Bugles();
+
+		snack2.setSize(300);
+		snack2.setCreationTime(2022, 3, 12);
+		System.out.println("가격 : " + snack2.getPrice() + "원");
+		System.out.println("유통 기한이 " + snack2.getExpiration() + "일 남았습니다.");
+
+		snack2.eat();
+
+
+	}
+
+}
+
+
+class Bugles {
+	private int price;
+	private int size;
+	private Calendar creationTime;
+	private int expiration;
+
+
+
+	// 가격
+	public int getPrice() {
+		return price;
+	}
+
+
+	// 사이즈를 받으면 각각의 가격과 유통기한으로 리턴 시켜주는 메소드
+	public void setSize(int size) {
+		if (size == 300) {
+			this.price = 850;
+			this.expiration += 7;
+		} else if (size == 500) {
+			this.price = 1200;
+			this.expiration += 10;
+		} else if (size == 850) {
+			this.price = 1950;
+			this.expiration += 15;
+		} else {
+			System.out.println("가격을 측정할 수 없는 무게입니다.");
+		}
+	}
+
+
+	// 매개변수로부터 값을 받아서 creationTime에 넣어줌
+	public void setCreationTime(int year, int month, int date) {
+		Calendar creationTime = Calendar.getInstance();
+		creationTime.set(year, month - 1, date);
+		this.creationTime = creationTime;
+
+
+
+	}
+
+
+
+	// 현재시간 - 생산일짜 뺴서 총 몇일 남았는지 구하는 메소드
+	public int checkExpiration(Calendar creationTime) {
+		Calendar now = Calendar.getInstance();
+
+
+		long creationTick = creationTime.getTimeInMillis();
+		long nowTick = now.getTimeInMillis();
+
+		return (int) (((nowTick - creationTick) / 1000 / 60 / 60 / 24));
+
+	}
+
+	// checkExpiration에서 getSize로부터 리턴받은 유통기한 날짜를 뺴주는 메소드
+	public int getExpiration() {
+		this.expiration = checkExpiration(creationTime) - this.expiration;
+		return this.expiration;
+	}
+
+
+	// 과자를 맛있게 먹었습니다 or 유통기한이 지나 먹을 수 없습니다.
+	public void eat() {
+		if (expiration > 0) {
+			System.out.println("과자를 맛있게 먹었습니다.");
+		} else {
+			System.out.println("유통기한이 지나 먹을 수 없습니다.");
+		}
+
+	}
+
+
+}
+*코드리뷰
+snack.setCreationTIme("2022-3-20")을 매개변수로 받을 때 스프링으로 받아서 계산하는것을 구현하지 못하여
+int형으로 바꿔주어 int year, int month,int date로 바꿔주었지만,
+private Calendar setTime(String creationTime, Calendar time) {
+		String[] timelist = creationTime.split("-");
+		int[] ymd = new int[timelist.length];
+		for (int i = 0; i < timelist.length; i++) {
+			ymd[i] = Integer.parseInt(timelist[i]);
+		}
+		time.set(ymd[0], ymd[1] - 1, ymd[2]);
+		return time;
+	}
+이렇게 creationTime.split로 -을 나눠주고 timelist라는 배열을 새로 만든 후 각각의 배열 값에 2022 3 20을 넣어주는 방법이 있음을 
+다른 조원의 코드를 보며 알게됨.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+public class Q04 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Employee e1 = new Employee();
+
+		e1.setName("홍길동");
+		e1.setDepartment("부장");
+		e1.setPosition("대리");
+		e1.setTel("010-1234-5678");
+		e1.setBoss(null); // 직속 상사 없음
+
+		e1.info();
+
+
+		Employee e2 = new Employee();
+
+		e2.setName("아무개");
+		e2.setDepartment("홍보부");
+		e2.setPosition("사원");
+		e2.setTel("010-2541-8569");
+		e2.setBoss(e1); // 직속 상사 e1(홍길동)
+
+		e2.info();
+
+
+	}
+
+}
+
+
+class Employee {
+	private String name;
+	private String department;
+	private String position;
+	private String tel;
+	private Employee boss;
+	private String txt = "";
+
+
+
+	public void setName(String name) {
+		if (checkName(name)) {
+			this.name = name;
+		} else {
+			System.out.println("올바르지 않은 이름");
+		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	//
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		if (department.equals("영업부") || department.equals("기획부") || department.equals("총무부")
+				|| department.equals("개발부") || department.equals("홍보부")) {
+			this.department = department;
+		} else {
+			System.out.println("올바르지 않은 부서");
+		}
+	}
+
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		if (position.equals("부장") || position.equals("과장") || position.equals("대리")
+				|| position.equals("사원")) {
+			this.position = position;
+		} else {
+			System.out.println("올바르지 않은 직책");
+		}
+	}
+
+	//
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		if (checkTel(tel)) {
+			this.tel = tel;
+		} else {
+			System.out.println("올바르지 않은 번호");
+		}
+	}
+
+	public Employee getBoss() {
+		return boss;
+	}
+
+	public void setBoss(Employee boss) {
+		if (boss != null) {
+			if (this.department.equals(boss.getDepartment())) {
+				this.boss = boss;
+			} // 타 부서 사람들은 지정 불가능
+
+		}
+	}
+
+
+
+	// 이름 길이 갯수 체크하는 메소드
+	private boolean checkName(String name) {
+
+		if (name.length() < 2 || name.length() > 5) { // 1.글자수 2~5개
+			return false;
+		}
+		for (int i = 0; i < name.length(); i++) {// 2.글자 모두 한글인경우
+			char c = name.charAt(i);
+			if (c < '가' || c > '힣') {
+				return false;
+			}
+		}
+		return true
+
+		;
+	}
+
+	private boolean checkTel(String tel) {
+		if (tel.charAt(3) == '-' && tel.charAt(8) == '-' && (tel.substring(0, 3).equals("010"))) {
+			return true;
+		}
+		return false;
+	}
+
+
+
+	// 문자열로 전부 반환
+	public void info() {
+		String txt = String.format("[%s]\n부서: %s\n직책 : %s\n연락처 : %s\n", this.name, this.department,
+				this.position, this.tel);
+
+
+
+		if (this.boss == null) {
+			txt += "직속 상사 : 없음";
+		} else {
+			txt += String.format("직속상사 : %s(%s %s)", boss.getName(), boss.getDepartment(),
+					boss.getPosition());
+		}
+		System.out.println(txt);
+
+	}
+}
+
+*코드리뷰
+e2.setBoss(e1) 부분에서 public void setBoss(Employee boss)부분에, 
+if문을 사용하여 boss의 값이 null이 아닐경우 -> 같은 부서인지 유효성 검사 -> this.boss에다가 매개변수인 boss를 넣어주는 식을
+구현하지 못하였음. 설명을 듣고 다시 구현함.
+또한 출력 부분에서도 if문을 사용하여 boss가 null일경우와 그렇지 않을경우 나눠서 다르게 출력해줌
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+public class Q05 {
+
+	public static void main(String[] args) {
+
+		Box box = new Box();
+
+		box.cook();
+		System.out.println();
+		box.check();
+		System.out.println();
+		box.list();
+
+	}
+
+}
+
+
+class Box {
+	private Macaron[] list = new Macaron[10];
+
+	public void cook() {
+
+		for (int i = 0; i < list.length; i++) {
+
+			Macaron m = new Macaron();
+
+			// 생산 크기(5cm ~ 15cm) → 판매 유효 크기(8cm ~ 14cm)
+			// 생산 색상(red, blue, yellow, white, pink, purple, green, black) → 판매 유효 색상(black을 제외한 모든
+			// 색상)
+			// 생산 샌드 두께(1mm ~ 20mm) → 판매 유효 두께(3mm ~ 18mm)
+
+			// 5 - 5= 0
+			// 15 - 5 = 10
+			int n = (int) (Math.random() * 11) + 5;
+
+			m.setSize(n);
+
+			String[] color = {"red", "blue", "yellow", "white", "pink", "purple", "green", "black"};
+			n = (int) (Math.random() * color.length);
+
+			m.setColor(color[n]);
+
+			n = (int) (Math.random() * 20) + 1;
+
+			m.setThickness(n);
+
+			this.list[i] = m;
+
+		}
+
+		System.out.println("마카롱을 " + list.length + "개 만들었습니다.");
+	}
+
+	public void check() {
+
+		// [박스 체크 결과]
+		// QC 합격 개수 : 8개
+		// QC 불합격 개수 : 2개
+
+		int pass = 0;
+		int failed = 0;
+
+		for (int i = 0; i < this.list.length; i++) {
+
+			Macaron m = this.list[i];
+
+			if (checkMacaron(m)) {
+				pass++;
+			} else {
+				failed++;
+			}
+
+		}
+
+		System.out.printf("[박스 체크 결과]\n" + "QC 합격 개수 : %d개\n" + "QC 불합격 개수 : %d개\n", pass, failed);
+
+
+	}
+
+	private boolean checkMacaron(Macaron m) {
+
+		// 생산 크기(5cm ~ 15cm) → 판매 유효 크기(8cm ~ 14cm)
+		// 생산 색상(red, blue, yellow, white, pink, purple, green, black) → 판매 유효 색상(black을 제외한 모든 색상)
+		// 생산 샌드 두께(1mm ~ 20mm) → 판매 유효 두께(3mm ~ 18mm)
+
+		if (m.getSize() < 8 || m.getSize() > 14) {
+			return false;
+		}
+
+		if (m.getColor().equals("black")) {
+			return false;
+		}
+
+		if (m.getThickness() < 3 || m.getThickness() > 18) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public void list() {
+
+		System.out.println("[마카롱 목록]");
+
+		for (int i = 0; i < this.list.length; i++) {
+
+			Macaron m = this.list[i];
+
+			System.out.printf("%d번 마카롱 : %dcm(%s, %dmm) : %s\n", (i + 1), m.getSize(), m.getColor(),
+					m.getThickness(), checkMacaron(m) ? "합격" : "불합격");
+		}
+	}
+}
+
+
+class Macaron {
+	private int size;
+	private String color;
+	private int thickness;
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getThickness() {
+		return thickness;
+	}
+
+	public void setThickness(int thickness) {
+		this.thickness = thickness;
+	}
+
+
+}
+
+*코드리뷰
+Box클래스 부분에 배열이 들어가있고,스트링을 Math.random을 사용하여 랜덤으로 받아줘야하기 때문에
+조원 모두 구현하는것에 어려움을 겪음.
+ 생산 크기(5cm ~ 15cm) → 판매 유효 크기(8cm ~ 14cm)와 같이 바꿔주는 부분에서는 if문을 사용하여 
+m.getSize() < 8 || m.getSize() > 14를 사용하여 옳바르지 않을 경우를 false로 잡아서 구현해줘야함.
+또한 박스 체크 결과를 출력하는 부분에서는 배열과 if문을 사용하여 구현해줘야함.
+
+
+*6번은 조원 모두 구현하지 못하였으므로, 각자 주말동안 다시한번 해결방법에 대해 고민해보기로함.
