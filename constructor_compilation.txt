@@ -1,0 +1,226 @@
+-생성자 
+public class Ex36_Constructor {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		/*
+		 *  생성자 :  constructor
+		 *  -(특수한 목적을 가지는)메소드
+		 *  -객체 멤버를 초기화하는 역활을 가지는 메소드
+		 *  -일반 메소드처럼 마음대로 호출 불가능하다 ->객체가 생성될때 딱 한번 호출된다 ->그뒤에는 호출 불가능
+		 *  -메소드의 이름은 반듯이 클래스와 동일한 이름을 가진다.
+		 *  
+		 *  
+		 *  Test t = new Test();
+		 *  
+		 *  new = 객체 생성 연산자
+		 */
+
+
+		Cup1 c1 = new Cup1();
+		Cup1 c2 = new Cup1();
+
+		c1.info();
+
+		// Setter 역활 -> 객체 초기화
+		// Setter 역활 -> 공산품 처럼 찍히는 초기화를 개성을 갖도록 -> 객체 정보를 수정
+		c1.setColor("yellow");
+		c1.setOwner("홍길동");
+
+
+		c2.info();
+		// c2.setColor("White");
+		// c2.setOwner("미정");
+		//
+
+
+
+	}// main
+}// class Ex_36
+
+
+
+class Cup1 {
+
+	private String color;
+	private String owner;
+
+	// 기본 생상자는 개발자가 작성하지 않으면 자동 생성
+	// 기본 생상자는 개발자가 작성하면 자동으로 만들어지지 않음
+	// 개발자가 기본 생성자를 생성 후 일부 멤버를 초기화를 안해서 그 일부 멤버에 한해서는 자동으로 컴퓨터가 초기화를 시킴.
+	// ***객체의 멤버 변수는 반드시 초기화 과정을 거치게 된다.***
+	public Cup1() {
+		// 생성자는 한번 생성하면 모든 객체가 같이 초기화 되기 때문에 안정성도 높아짐
+		this.color = "white";
+		this.owner = "미정";
+	}
+
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public void info() {
+		System.out.printf("색상:%s,소유주 : %s\n", this.color, this.owner);
+	}
+}
+===========================================================================================
+package com.test.java.obj.access;
+
+public class Ex37_Constructor {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+		// 공산품 > 일괄적 초기화>model(M705), price(40000)
+		Mouse m1 = new Mouse();
+
+
+		Mouse m2 = new Mouse();
+		m2.setPrice(35000);
+
+		Mouse m3 = new Mouse();
+		m3.setPrice(35000);
+
+
+		// 객체의 초기상태 > 상황에 따라 달라질 수 있다 > 생성자의 매개변수 사용 >다양성
+		// 모델명은 기본값 + 가격을 개발자 마음대로 하는 경우
+		Mouse m4 = new Mouse(35000);
+
+		// 모델명은 개발자 마음대로 + 가격은 기본값으로 치는 경우
+		Mouse m5 = new Mouse("A100");
+
+		// 모델명도 개발자 마음대로 + 가격도 개발자 마음대로
+		Mouse m6 = new Mouse("A8", 3000);
+
+		// QC >discount >35000
+		System.out.println(m1.getModel() + m1.getPrice());
+		System.out.println(m2.getModel() + m2.getPrice());
+		System.out.println(m3.getModel() + m3.getPrice());
+		System.out.println(m4.getModel() + m4.getPrice());
+	}
+
+}
+
+
+class Mouse {
+	private String model;
+	private int price;
+
+	// 기본생성자 : 공산품 찍히듯 일관적인 초기화
+	public Mouse() {
+		this.model = "M705";
+		this.price = 40000;
+	}
+
+	// 매개변수 생성자(오버로딩) : 개발자의 입맛대로 초기화 할 수 있음
+	public Mouse(int price) {// 생성자를 오버로딩함
+		this.model = "M705";
+		this.price = price;
+	}
+
+	// 매개변수 생성자(오버로딩)
+	public Mouse(String model) {
+		this.model = model;
+		this.price = 40000;
+	}
+
+	public Mouse(String model, int price) {
+		this.model = model;
+		this.price = price;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+}
+===========================================================================================
+package com.test.java.obj.access;
+
+public class Ex38_constrouctor {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Developer d1 = new Developer();
+		d1.info();
+
+		Developer d2 = new Developer("홍길동");
+		d2.info();
+
+		Developer d3 = new Developer("아무개", "JAVA");
+		d3.info();
+
+		// 익명 + 없음
+		Developer d4 = new Developer("익명");
+		d4.info();
+
+		// 생성자를 여러개 생성(생성자 오버로딩)
+		// 대부분의 생성자가 비슷한 행동을 한다.
+		// 중복 코드가 발생!!! > 줄이자!!!
+		// 다른 생성자를 호출 하는 형태로 코드 개선 > this(); ->생성자를 호출하는 표현
+	}
+
+}
+
+
+class Developer {
+	private String name;
+	private String language;
+
+
+	// A가 할수있는일 < B가 할 수 있는일<C가 할 수 있는일
+	// A
+	public Developer() {
+		// this.name = "익명";
+		// this.language ="없음";
+
+		// c를 호출
+		this("익명", "없음");
+	}
+
+	// B
+	public Developer(String name) {
+		// this.name = name;
+		// this.language = "없음";
+
+		// c를 호출
+		this(name, "없음");
+
+	}
+
+	// C
+	public Developer(String name, String lanugae) {
+		// 이름 유효성 검사
+		this.name = name;
+		// 언어 유효성 검사
+		this.language = language;
+
+	}
+
+	public void info() {
+		System.out.println("이름:" + this.name);
+		System.out.println("언어:" + this.language);
+		System.out.println();
+	}
+
+}
