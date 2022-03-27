@@ -1,0 +1,592 @@
+static변수_compliation
+public class Ex39_static {
+
+	// 1.클래스 로딩, Class Loading
+	// - 해당 프로그램을 실행하기 전에 클래스의 정의를 미리 읽어서 메모리에 얹는 작업
+	// -설계도를 미리 읽어서 언제든지 사용 가능하게 메모리에 올려놓는 작업
+	// *****클래스 로딩 과정에서 발견되는 모든 static멤버는 메모리에 구현된다******
+
+	// 2.main()
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+		/*
+		 * 
+		 * static 키워드
+		 * -클래스 멤버에 붙이는 키워드
+		 * -클래스에 붙이는 키워드
+		 * 1.멤버변수
+		 * 2.멤버 메소드
+		 * 
+		 */
+
+		// ***static 메소드는 접근할때 class 명을 붙인다 ***
+		Student.setSchool("역삼중학교");
+
+
+		Student s1 = new Student();
+
+		s1.setName("홍길동");
+		s1.setAge(15);
+		// s1.setSchool("역삼중학교");
+
+		System.out.println(s1.info());
+
+		Student s2 = new Student();
+
+		s2.setName("아무개");
+		s2.setAge(14);
+		// s2.setSchool("역삼중학교");
+
+		System.out.println(s2.info());
+
+		Student s3 = new Student();
+
+		s3.setName("테스트");
+		s3.setAge(16);
+		// s3.setSchool("역삼중학교");
+
+		System.out.println(s3.info());
+
+
+
+	}
+}
+
+
+// 학생 클래스
+// "역삼 중학교" > 모든 학생
+// class Student {
+// private String name;
+// private int age;
+// private String school;
+//
+//
+// public String getName() {
+// return name;
+// }
+//
+// public void setName(String name) {
+// this.name = name;
+// }
+//
+// public int getAge() {
+// return age;
+// }
+//
+// public void setAge(int age) {
+// this.age = age;
+// }
+//
+// public String getSchool() {
+// return school;
+// }
+//
+// public void setSchool(String school) {
+// this.school = school;
+// }
+//
+// public String info() {
+//
+// return String.format("이름 : %s, 나이 : %d, 학교:%s", this.name, this.age, this.school);
+// }
+//
+// }
+
+
+class Student {
+	// 클래스 멤버 변수 = 객체변수 + 정적변수 (밑에 class변수와는 다름)
+
+	// 객체변수 : 각 개인(객체_이 각자 저장할 데이터를 저장하는 변수
+	// -즉 나만의 데이터(*****)개인의 특성(*******)을 만듦
+	// -개인 사물함
+	private String name;
+	private int age;
+
+
+
+	// Static 변수
+	// Static을 붙임!! + 정적임 ->정적 변수=static 변수=공용변수(다같이쓰는변수)=class 변수
+	// *하나의 클래스로부터 만들어진 모든 객체*가 공통으로 가지는 데이터를 저장하는 변수
+	// *모든 객체의 공통된 특성
+	// 공용사물함
+	private static String school;
+
+
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+	//
+	// public String getSchool() {
+	// return school;
+	// }
+	//
+	// public void setSchool(String school) {
+	// this.school = school;
+	// }
+
+
+	public static String getSchool() {
+		return school;
+	}
+
+	public static void setSchool(String school) {
+		Student.school = school;
+	}
+
+	public String info() {
+
+		return String.format("이름 : %s, 나이 : %d, 학교:%s", this.name, this.age, Student.school);// this.school
+	}
+
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+package com.test.java.obj.access;
+
+public class Ex40_static {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		// 요구사항
+		// 1. 펜을 생산하시오
+		// 2. 생산된 펜의 개수를 세시오
+
+
+		// Case1
+		// -pen과 count간의 관계약함 ->가독성 낮음(count라는 이름이 Pen 하고 아무상관 없음)
+		// -오차발생(count++누락)
+		// int count = 0;
+		// Pen p1 = new Pen("Monami", "Black");
+		// count++;
+		//
+		//
+		// Pen p2 = new Pen("Monami", "Black");
+		// count++;
+		//
+		//
+		// Pen p3 = new Pen("Monami", "Black");
+		// count++;
+		//
+		// System.out.println("볼펜 개수:" + count);
+
+
+		// case2
+		// count변수와 pen하고의 관계를 강하게 연결-> 결합
+		// Pen p1 = new Pen("Monami", "Black"); //초기화
+		// p1.count++;
+		//
+		// Pen p2 = new Pen("Monami", "Black"); //초기화
+		// p2.count++;
+		//
+		// Pen p3 = new Pen("Monami", "Black"); //초기화
+		// p3.count++;
+		//
+		// //cas2가 잘 못된 코드인 이유
+		// //p1이라는 한낱 객체(개인)이 모든 펜들의 개수를 세는 공통적인 값을 저장 할 이유가 없다
+		// System.out.println("볼펜의 개 수 "+p1.count);
+		// System.out.println("볼펜의 개 수 "+p2.count);
+		// System.out.println("볼펜의 개 수 "+p3.count);
+
+
+		// Case3 -Staitc변수 사용
+		// Pen과 카운트 변수의 관계 명확
+		// 소재도 분명
+		// 변수가 하나기 때문에 유일함
+		// Pen p1 = new Pen("Monami", "Black"); // 초기화
+		// Pen.count++; // ***static 메소드는 접근할때 class 명을 붙인다 ***
+		//
+		// Pen p2 = new Pen("Monami", "Black"); // 초기화
+		// Pen.count++;
+		//
+		// Pen p3 = new Pen("Monami", "Black"); // 초기화
+		// Pen.count++;
+		//
+		//
+		// System.out.println("볼펜 개수:" + Pen.count);
+
+
+
+		// case4
+		// case1,2,3,4중에 가장 이상적인 방법
+		// count++누락을 방지
+		Pen p1 = new Pen("Monami", "Black"); // 초기화 ,생성될때마다 카운트값이 1씩 누적됨
+		Pen p2 = new Pen("Monami", "Black");
+		Pen p3 = new Pen("Monami", "Black");
+
+		System.out.println("볼펜 개수:" + Pen.count);
+
+	}// Main
+
+}// Ex40
+
+
+//
+// class Pen {
+//
+// private String model;
+// private String color;
+// public int count = 0;
+//
+// public Pen(String model, String color) {
+// this.model = model;
+// this.color = color;
+// }
+//
+//
+// public String dump() {
+// return String.format("{ model : %s, color:%s }",this.model,this.color)
+// }
+//
+//
+//
+// }
+
+
+class Pen {
+
+	private String model;
+	private String color;
+	public static int count = 0; // static을 붙임 = 공통데이터 = 오직 한번만 생김
+
+	public Pen(String model, String color) {// 매개변수 생성자
+		this.model = model;
+		this.color = color;
+		Pen.count++; // 생성자를 호출할때마다 1이 증가하기 때문에 생성자에 넣어줌
+	}
+
+
+	public String dump() {
+		return String.format("{ model : %s, color:%s }", this.model, this.color);
+	}
+
+
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+예제
+package com.text.java.question.obj.constructor;
+
+public class Q03 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// 포장하는 직원
+		Packer packer = new Packer();
+
+		// 연필
+		Pencil p1 = new Pencil();
+		p1.setHardness("HB");
+		Packer.packing(p1); // static 메소드를 사용할때는 앞에 클래스이름을 붙임, 객체 생성 따로 없이 바로 쓸 수 있음!!!
+
+		Pencil p2 = new Pencil();
+		p2.setHardness("4B");
+		Packer.packing(p2);
+
+		// 지우개
+		Eraser e1 = new Eraser();
+		e1.setSize("Large");
+		Packer.packing(e1);
+
+		// 볼펜
+		BallPointPen b1 = new BallPointPen();
+		b1.setThickness(0.3);
+		b1.setColor("black");
+		Packer.packing(b1);
+
+		BallPointPen b2 = new BallPointPen();
+		b2.setThickness(1.5);
+		b2.setColor("red");
+		Packer.packing(b2);
+
+		// 자
+		Ruler r1 = new Ruler();
+		r1.setLength(30);
+		r1.setShape("줄자");
+		Packer.packing(r1);
+
+		// 결과 확인
+		packer.countPacking(0); // static 메소드를 사용할때는 앞에 클래스이름을 붙임, 객체 생성 따로 없이 바로 쓸 수 있음!!!
+		packer.countPacking(1);
+		packer.countPacking(2);
+		packer.countPacking(3);
+		packer.countPacking(4);
+	}
+
+}
+
+
+
+class Packer {// 공통변수에 static을 붙여줌
+	static int pencilCount;
+	static int eraserCount;
+	static int ballPointPencount;
+	static int rulerCount;
+
+	static void packing(Pencil pencil) {
+		System.out.println(Pencil.info());
+
+	}
+
+	static void packing(Eraser eraser) {
+		// 지우개 검수,포장
+		System.out.println(Eraser.info());
+
+	}
+
+	static void packing(BallPointPen ballPointPen) {
+		System.out.println(BallPointPen.info());
+	}
+
+	static void packing(Ruler ruler) {
+		// 자를 검수,포장
+		System.out.println(Ruler.info());
+
+	}
+
+	void countPacking(int type) {
+		if (type == 0) {
+			System.out.println("=======================");
+			System.out.println("포장결과");
+			System.out.println("=======================");
+			System.out.println("연필 " + pencilCount + "회");
+			System.out.println("지우개 " + eraserCount + "회");
+			System.out.println("볼펜 " + ballPointPencount + "회");
+			System.out.println("자 " + rulerCount + "회");
+			System.out.println();
+		}
+		if (type == 1) {
+			System.out.println("=======================");
+			System.out.println("포장결과");
+			System.out.println("=======================");
+			System.out.println("연필" + pencilCount + "회");
+			System.out.println();
+		}
+		if (type == 2) {
+			System.out.println("=======================");
+			System.out.println("포장결과");
+			System.out.println("=======================");
+			System.out.println("지우개" + eraserCount + "회");
+			System.out.println();
+		}
+		if (type == 3) {
+			System.out.println("=======================");
+			System.out.println("포장결과");
+			System.out.println("=======================");
+			System.out.println("볼펜" + ballPointPencount + "회");
+			System.out.println();
+		}
+		if (type == 4) {
+			System.out.println("=======================");
+			System.out.println("포장결과");
+			System.out.println("=======================");
+			System.out.println("자" + rulerCount + "회");
+		}
+	}
+}
+
+
+class Pencil {// 변수이름과 info앞에 static을 붙여야지 실행되는 이유 질문하기
+	private static String input = "";
+
+	public void setHardness(String input) {
+		if (input.equals("4B")) {
+			this.input = "4B";
+			Packer.pencilCount++;
+		}
+
+		if (input.equals("3B")) {
+			this.input = "3B";
+			Packer.pencilCount++;
+		}
+
+
+		if (input.equals("2B")) {
+			this.input = "2B";
+			Packer.pencilCount++;
+		}
+
+
+		if (input.equals("B")) {
+			this.input = "B";
+			Packer.pencilCount++;
+		}
+
+
+		if (input.equals("HB")) {
+			this.input = "HB";
+			Packer.pencilCount++;
+		}
+
+
+		if (input.equals("2H")) {
+			this.input = "2H";
+			Packer.pencilCount++;
+		}
+
+
+		if (input.equals("3H")) {
+			this.input = "3H";
+			Packer.pencilCount++;
+		}
+
+		if (input.equals("4H")) {
+			this.input = "4H";
+			Packer.pencilCount++;
+		}
+
+	}
+
+	static String info() {
+		return String.format("포장 전 검수 : %s 진하기 연필입니다.\n포장을 완료했습니다.", input);
+	}
+
+}
+
+
+class Eraser {
+
+	private static String input;
+
+	public void setSize(String input) {
+		if (input.equals("Large")) {
+			this.input = "Large";
+			Packer.eraserCount++;
+		}
+		if (input.equals("Medium")) {
+			this.input = "Medium";
+			Packer.eraserCount++;
+		}
+		if (input.equals("small")) {
+			this.input = "small";
+			Packer.eraserCount++;
+		}
+
+	}
+
+	static String info() {
+		return String.format("포장 전 검수 : %s 사이즈 지우개입니다.\n포장을 완료했습니다.", input);
+	}
+}
+
+
+class BallPointPen {
+	private static double input;
+	private static String input2;
+
+	public void setThickness(double input) {
+		if (input == 0.3) {
+			this.input = 0.3;
+
+		}
+		if (input == 0.5) {
+			this.input = 0.5;
+
+		}
+		if (input == 0.7) {
+			this.input = 0.7;
+
+		}
+		if (input == 1) {
+			this.input = 1;
+
+		}
+		if (input == 1.5) {
+			this.input = 1.5;
+
+		}
+
+	}
+
+
+	public void setColor(String input2) {
+		if (input2.equals("red")) {
+			this.input2 = "red";
+			Packer.ballPointPencount++;
+
+		}
+		if (input2.equals("blue")) {
+			this.input2 = "blue";
+			Packer.ballPointPencount++;
+		}
+		if (input2.equals("green")) {
+			this.input2 = "green";
+			Packer.ballPointPencount++;
+		}
+		if (input2.equals("black")) {
+			this.input2 = "black";
+			Packer.ballPointPencount++;
+		}
+
+	}
+
+	static String info() {
+		return String.format("포장 전 검수: %s색상 %.1fmm 사이즈 볼펜입니다.\n포장을 완료했습니다.", input2, input);
+	}
+
+
+}
+
+
+class Ruler {
+	private static int input;
+	private static String input2 = "";
+
+	public void setLength(int input) {
+		if (input == 30) {
+			this.input = 30;
+			Packer.rulerCount++;
+
+		}
+		if (input == 50) {
+			this.input = 50;
+			Packer.rulerCount++;
+		}
+		if (input == 100) {
+			this.input = 100;
+			Packer.rulerCount++;
+		}
+	}
+
+	public void setShape(String input2) {
+		if (input2.equals("줄자")) {
+			this.input2 = "줄자";
+
+		}
+		if (input2.equals("운형자")) {
+			this.input2 = "운형자";
+
+		}
+		if (input2.equals("삼각자")) {
+			this.input2 = "삼각자";
+
+		}
+
+	}
+
+
+	static String info() {
+		return String.format("포장 전 검수: %dcm %s 입니다\n포장을 완료했습니다.", input, input2);
+	}
+}
+
+
+
