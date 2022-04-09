@@ -1,0 +1,353 @@
+public class Q01 {
+
+   public static void main(String[] args) {
+      
+      try {
+         
+         File file = new File("C:\\Users\\user\\class\\파일_입출력_문제\\이름수정.dat");
+         File file2 = new File("C:\\Users\\user\\class\\파일_입출력_문제\\이름수정_변환.dat");
+         if (file.exists()) {
+            
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file2));
+            
+            String line = null;
+            String output = null;
+            while ((line = reader.readLine()) != null) {
+               
+               output = line.replace("유재석", "메뚜기");
+               writer.write(output);
+               writer.newLine();
+            }
+            
+            reader.close();
+            writer.close();
+            
+            file.delete();
+            file2.renameTo(file);
+            
+         }
+         
+         System.out.println("변환 후 다른 이름으로 저장하였습니다.");
+         
+      } catch (Exception e) {
+         System.out.println("Q01.main");
+         e.printStackTrace();
+      }
+   }
+
+}
+
+// 유재석이 없는 경우를 대비하여 예외처리를 선언
+// replace 교체 후 파일에서는 안 바뀜 > write 빼 먹음
+
+
+
+
+
+
+public class Q02 {
+
+   public static void main(String[] args) {
+      /*
+                  요구사항
+         숫자를 한글로 바꾼 뒤 파일을 다른 이름으로 저장하시오.
+         
+         조건..
+         0 → 영, 1 → 일 ... 9 → 구
+         저장할 파일명: 숫자_변환.dat
+         리소스..
+         파일 > 숫자.dat
+         파일 다운로드
+         출력..
+         변환 후 다른 이름으로 저장하였습니다.
+      */
+      try {
+
+         File file = new File("C:\\Users\\kunhee\\Downloads\\파일_입출력_문제\\숫자.dat");
+         File file1 = new File("C:\\Users\\kunhee\\Downloads\\파일_입출력_문제\\숫자_변환.dat");
+         file1.createNewFile();
+
+         if (file.exists()) {
+            
+            BufferedReader reader= new BufferedReader(new FileReader(file));
+            BufferedWriter writer= new BufferedWriter(new FileWriter(file1));
+            
+                        
+            String line = null;
+            
+            while((line = reader.readLine()) != null) {
+               
+               for(int i = 0; i<=9; i++) {
+                  
+                  line = line.replace( (char)(i+48) , num(i) );
+               }
+               
+               writer.write(line);
+               writer.newLine();
+   
+            }
+            reader.close();
+            writer.close();
+
+         }
+         
+
+      } catch (Exception e) {
+         System.out.println("Q02.main");
+         e.printStackTrace();
+      }
+
+
+
+   }
+
+
+
+
+
+public class Q03 {
+	public static void main(String[] args) {
+
+		/*
+		3번 문제 (완료)
+		요구사항  : 성적을 확인 후 합격자/불합격자 명단을 출력하시오.
+		조    건 : 합격 조건: 3과목 평균 60점 이상
+				 과락 조건: 1과목 40점 미만
+		데 이 터  : //이름,국어,영어,수학
+				    홍길동,50,60,70
+				    아무개,100,80,50
+				    하하하,98,48,56
+		출   력  : [합격자] 
+				  홍길동 
+				  하하하 
+				  아무개 
+		
+				  [불합격자] 
+				  호호호 
+				  후후후 
+		
+		0. 합격/불합격 array list 만들기
+		1. buff > 1줄 읽기 > list 만들기 > 과락 메소드 확인 > 평균 확인 메소드
+		2. 과락 확인 메소드 (return boolean 만들기) > 불합격 리스트 추가
+		3. 평균 확인 메소드 > 합격 리스트
+		4. 출력
+		
+		*/
+
+		finalCheck();
+
+
+	} // main
+
+
+	private static void finalCheck() {
+
+
+		try {
+
+
+			BufferedReader reader = new BufferedReader(
+					new FileReader("C:\\Users\\user\\Desktop\\0405과제\\파일_입출력_문제\\성적.dat"));
+
+			String line = null;
+
+			// 중복 없애기 > HashSet
+			HashSet<String> passList = new HashSet<String>();
+			HashSet<String> failList = new HashSet<String>();
+
+
+			while ((line = reader.readLine()) != null) {
+
+
+				// , 스플릿 > 점수 int 리스트로 만들기
+				String[] scoreList = line.split(",");
+				ArrayList<String> list = new ArrayList<String>(Arrays.asList(scoreList));
+
+
+				// 학생 이름 따로 변수로 받고 리스트에서 제거
+				String studentName = list.get(0);
+				list.remove(0);
+
+
+				// 과락 확인
+				for (int i = 0; i < list.size(); i++) {
+					if (Integer.parseInt(list.get(i)) < 40) {
+						failList.add(studentName);
+						break;
+					}
+				}
+
+				// 평균 점수 확인
+				int avg = 0;
+
+				for (int i = 0; i < list.size(); i++) {
+					avg += Integer.parseInt(list.get(i));
+				}
+
+				if ((avg / 3) >= 60) {
+					for (int i = 0; i < list.size(); i++) {
+						passList.add(studentName);
+					}
+				} else {
+					failList.add(studentName);
+				}
+
+			}
+			reader.close();
+
+
+
+			// 합/불 차집합 > 과락/평균 확인
+			passList.removeAll(failList);
+			System.out.println("[합격자]");
+			System.out.println(passList);
+			System.out.println("[불합격자]");
+			System.out.println(failList);
+
+			// 마지막 1줄 출력 미완성
+
+
+		} catch (Exception e) {
+			System.out.println("Q03.finalCheck");
+			e.printStackTrace();
+		}
+
+
+
+	} // finalCheck()
+
+
+
+}// Q03
+
+//메소드 따로 만들 수 있지만 코드가 조금 더 길어짐
+
+
+
+
+
+public class Q04 {
+
+   public static void main(String[] args) {
+      
+      String path = "C:\\Users\\kunhee\\Downloads\\파일_입출력_문제\\단일검색.dat";
+      
+      try {
+         
+         Scanner scan = new Scanner(System.in);
+         System.out.print("이름: ");
+         String name = scan.nextLine();
+         
+         BufferedReader reader = new BufferedReader(new FileReader(path));
+                  
+         String line = null;
+         while((line = reader.readLine()) != null) {
+            
+            String[] temp = line.split(",");
+            
+            if(temp[1].equals(name)) {
+               System.out.printf("[%s]\n번호:%s\n주소:%s\n전화:%s", temp[1],temp[0],temp[2],temp[3]);
+            }
+            
+         }         
+         
+      } catch (Exception e) {
+         System.out.println("Q04.main");
+         e.printStackTrace();
+      }
+
+   }
+
+}
+
+   private static char num(int i) {
+      
+      switch(i) {
+         
+         case 0:
+            return '영';
+         case 1:
+            return '일';
+         case 2:
+            return '이';
+         case 3:
+            return '삼';
+         case 4:
+            return '사';
+         case 5:
+            return '오';
+         case 6:
+            return '육';
+         case 7:
+            return '칠';
+         case 8:
+            return '팔';
+         case 9:
+            return '구';
+         default:
+            return '엄';
+      }
+      
+   }
+
+}
+
+
+
+public class Q06 {
+
+   public static void main(String[] args) {
+
+      Stack<String> small = new Stack<String>();
+      Stack<String> mid = new Stack<String>();
+      
+      try {
+         
+         FileReader reader = new FileReader("C:\\Users\\user\\class\\파일_입출력_문제\\자바소스.java");
+         
+         int code = -1;
+         
+         while ((code = reader.read()) != -1) {
+            if ((char)code == '(') {
+               small.add("(");
+            } else if ((char)code == ')') {
+               small.pop();
+            } else if ((char)code == '{') {
+               mid.add("{");
+            } else if ((char)code == '}') {
+               mid.pop();
+            }
+         }
+         
+         reader.close();
+         
+         if (small.size() == 0 && mid.size() == 0) {
+            System.out.println("올바른 소스입니다.");
+         } else {
+            System.out.println("올바르지 않은 소스입니다.");
+         }
+         
+      } catch (Exception e) {
+         System.out.println("Q06.main");
+         e.printStackTrace();
+      }
+      
+   }
+
+}
+
+//스택이라 그래서 하나씩 빼면서 짝수/홀수 번호 이용 > 실패
+//훨씬 쉬는 방법
+
+
+// 닫는 괄호가 더 있는경우에 대하여 예외처리 진행
+
+
+
+
+
+public class Q05
+public class Q07
+
+> 풀이 못함
